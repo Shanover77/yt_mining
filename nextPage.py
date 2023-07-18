@@ -1,6 +1,7 @@
 import csv
 import requests
 import datetime
+import os
 
 def get_current_time_as_filename():
     current_time = datetime.datetime.now()
@@ -31,7 +32,8 @@ def search_videos(query, api_key, page_token=None):
                 video_id = item['id']['videoId']
                 title = item['snippet']['title']
                 video_url = f"https://www.youtube.com/watch?v={video_id}"
-                videos.append({'Video ID': video_id, 'Title': title, 'URL': video_url})
+                description = title = item['snippet']['description']
+                videos.append({'Video ID': video_id, 'Title': title, 'URL': video_url, 'Description': description})
     
     next_page_token = data.get('nextPageToken')
     
@@ -57,6 +59,8 @@ for _ in range(num_pages):
 
 # Save the results to a CSV file
 csv_file = 'data/' + query + ".csv"
+
+os.makedirs(os.path.dirname(csv_file), exist_ok=True)
 
 with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
     fieldnames = ['Video ID', 'Title', 'URL']
