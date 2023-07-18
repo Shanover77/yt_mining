@@ -32,7 +32,8 @@ def search_videos(query, api_key, page_token=None):
                 video_id = item['id']['videoId']
                 title = item['snippet']['title']
                 video_url = f"https://www.youtube.com/watch?v={video_id}"
-                videos.append({'Video ID': video_id, 'Title': title, 'URL': video_url})
+                description = title = item['snippet']['description']
+                videos.append({'Video ID': video_id, 'Title': title, 'URL': video_url, 'Description': description})
     
     next_page_token = data.get('nextPageToken')
     
