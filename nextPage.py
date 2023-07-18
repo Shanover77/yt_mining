@@ -1,6 +1,7 @@
 import csv
 import requests
 import datetime
+import os
 
 def get_current_time_as_filename():
     current_time = datetime.datetime.now()
@@ -57,6 +58,8 @@ for _ in range(num_pages):
 
 # Save the results to a CSV file
 csv_file = 'data/' + query + ".csv"
+
+os.makedirs(os.path.dirname(csv_file), exist_ok=True)
 
 with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
     fieldnames = ['Video ID', 'Title', 'URL']
