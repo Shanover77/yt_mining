@@ -21,6 +21,21 @@ def getvideostats(video_ids, api_key):
     
     return data
 
+def get_video_captions(video_id, api_key):
+    # Setting up the YouTube Data API v3 client
+    url = "https://www.googleapis.com/youtube/v3/captions"
+
+    params = {
+        'part': 'snippet',
+        'videoId': video_id,
+        'key': api_key,
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    return data
+
 api_key = os.getenv("API_KEY")
 
 # Repalce this with the required Youtube video ids.
